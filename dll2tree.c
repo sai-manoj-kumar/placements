@@ -1,21 +1,8 @@
 #include<stdio.h>
 #include<stdlib.h>
+#include"tree.h"
+#include"dll.h"
 
-
-typedef struct node{
-        int val;
-        struct node *prev, *next;
-}node;
-
-node* findmid(node* head, node* end)
-{
-        for(;head && end; head = head->next, end = end->prev){
-                if( head == end || head->next == end ){
-                        return head;
-                }
-        }
-        return 0;
-}
 
 node* dll2tree(node *head, node *end)
 {
@@ -37,39 +24,6 @@ node* dll2tree(node *head, node *end)
         return mid;
 }
 
-void inorder(node *head)
-{
-        if( head->prev ){
-                inorder(head->prev);
-        }
-        printf("%d\n", head->val);
-        if( head->next ){
-                inorder(head->next);
-        }
-
-}
-
-void preorder(node *head)
-{
-        printf("%d\n", head->val);
-        if( head->prev ){
-                preorder(head->prev);
-        }
-        if( head->next ){
-                preorder(head->next);
-        }
-}
-
-void postorder(node *head)
-{
-        if( head->prev ){
-                postorder(head->prev);
-        }
-        if( head->next ){
-                postorder(head->next);
-        }
-        printf("%d\n", head->val);
-}
 
 int main()
 {
@@ -88,9 +42,11 @@ int main()
                 prev = cur;
         }
         last = cur;
+        printf("List\n");
         for(cur = head; cur; cur = cur->next){
-                printf("%d\n", cur->val);
+                printf("%d  ", cur->val);
         }
+        printf("\n");
 
 
         head = dll2tree(head, last);
@@ -98,11 +54,12 @@ int main()
         printf("In order\n");
         inorder(head);
 
-        printf("Pre order\n");
+        printf("\nPre order\n");
         preorder(head);
 
-        printf("Post order\n");
+        printf("\nPost order\n");
         postorder(head);
+        printf("\n");
 
         return 0;
 }
